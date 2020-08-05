@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'com.huawei.agconnect'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
@@ -16,10 +16,25 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release{
+            storeFile file('/Users/gustavoforero/Documents/Projects/Personal/HMS/HMSDemo.jks')
+            keyAlias('hmsdemo')
+            keyPassword('2520131018')
+            keyPassword('2520131018')
+            v1SigningEnabled true
+            v2SigningEnabled true
+            storePassword '2520131018'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.release
+            debuggable true
         }
     }
 }
@@ -33,5 +48,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
+    //Account Kit
+    implementation 'com.huawei.hms:hwid:5.0.1.301'
+    //Push Kit
+    implementation 'com.huawei.hms:push:5.0.0.300'
+    // Import the base SDK.
+    implementation 'com.huawei.hms:ml-computer-vision-face:2.0.1.300'
+    // Import the contour and key point detection model package.
+    implementation 'com.huawei.hms:ml-computer-vision-face-shape-point-model:2.0.1.300'
+    // Import the facial expression detection model package.
+    implementation 'com.huawei.hms:ml-computer-vision-face-emotion-model:2.0.1.300'
+    // Import the facial feature detection model package.
+    implementation 'com.huawei.hms:ml-computer-vision-face-feature-model:2.0.1.300'
 }
